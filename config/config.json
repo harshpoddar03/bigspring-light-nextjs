@@ -18,8 +18,19 @@
   "nav_button": {
     "enable": true,
     "label": "Get Started",
-    "link": "/contact"
+    "link": "/dashboard"
   },
+  "signup": {
+    "signup_enable": true,
+    "signup_label": "Get Started",
+    "signup_link": "/authentication/signup"
+  },
+  "login": {
+    "login_enable": true,
+    "login_label": "Get Started",
+    "login_link": "/authentication/login"
+  },
+  
 
   "params": {
     "contact_form_action": "",

@@ -18,6 +18,8 @@ const Header = () => {
   // logo source
   const { logo } = config.site;
   const { enable, label, link } = config.nav_button;
+  const {signup_enable, signup_label, signup_link} = config.signup;
+  const {login_enable, login_label, login_link} = config.login;
 
   return (
     <header className="header">
@@ -33,6 +35,12 @@ const Header = () => {
           className="order-2 flex cursor-pointer items-center md:hidden md:order-1"
           onClick={() => setNavOpen(!navOpen)}
         >
+        {/* <button
+          id="show-button"
+          className="order-2 flex cursor-pointer items-center md:hidden md:order-1"
+          onClick={() => setNavOpen(!navOpen)}
+        >
+        </button> */}
           {navOpen ? (
             <svg className="h-6 fill-current" viewBox="0 0 20 20">
               <title>Menu Open</title>
@@ -102,16 +110,19 @@ const Header = () => {
                   href={link}
                   rel=""
                 >
-                  {label}
+                  Signup
                 </Link>
               </li>
             )}
           </ul>
         </div>
-        {enable && (
-          <div className="d-flex order-1 ml-auto hidden min-w-[200px] items-center justify-end md:ml-0 md:flex md:order-2">
-            <Link className="btn btn-primary z-0 py-[14px]" href={link} rel="">
-              {label}
+        {signup_enable && (
+          <div className="d-flex order-1 ml-auto hidden min-w-[200px] items-center justify-end md:ml-0 md:flex md:order-2 ">
+            <Link className="btn btn-primary z-0 py-[14px]" href={signup_link} rel="">
+            Signup
+            </Link>
+            <Link className="btn btn-primary z-0 py-[14px]" href={login_link} rel="">
+            Login
             </Link>
           </div>
         )}
