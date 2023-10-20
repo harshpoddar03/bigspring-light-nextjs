@@ -3,6 +3,8 @@ import theme from "@config/theme.json";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import TagManager from "react-gtm-module";
+import { ThemeProvider } from "@mui/material/styles";
+import { baselightTheme } from "../src/theme/DefaultColors";
 import "styles/style.scss";
 
 const App = ({ Component, pageProps }) => {
@@ -53,7 +55,9 @@ const App = ({ Component, pageProps }) => {
           content="width=device-width, initial-scale=1, maximum-scale=5"
         />
       </Head>
-      <Component {...pageProps} />
+      <ThemeProvider theme={baselightTheme}>
+        <Component {...pageProps} />
+      </ThemeProvider>
     </>
   );
 };
