@@ -1,92 +1,89 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Select, MenuItem } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import DashboardCard from '../shared/DashboardCard';
 import dynamic from "next/dynamic";
+import { useTheme } from '@emotion/react';
+
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const SalesOverview = () => {
-
-    // select
     const [month, setMonth] = React.useState('1');
+    const [chartData, setChartData] = useState({ dates: [], prices: [] });
 
-    const handleChange = (event) => {
-        setMonth(event.target.value);
-    };
-
-    // chart color
     const theme = useTheme();
     const primary = theme.palette.primary.main;
-    const secondary = theme.palette.secondary.main;
 
-    // chart
-    const optionscolumnchart = {
+    useEffect(() => {
+        async function fetchData() {
+            const response = await fetch('/api/historicaldata');
+            if (response.ok) {
+                const data = await response.json();
+                setChartData(data);
+            }
+        }
+        fetchData();
+    }, []);
+
+    const options = {
+        series: [{
+            name: 'RELIANCE',
+            data: chartData.prices
+        }],
         chart: {
-            type: 'bar',
-            fontFamily: "'Plus Jakarta Sans', sans-serif;",
-            foreColor: '#adb0bb',
+            type: 'area',
+            height: 350,
+            zoom: {
+                type: 'x',
+                enabled: true,
+                autoScaleYaxis: true
+            },
             toolbar: {
-                show: true,
-            },
-            height: 370,
-        },
-        colors: [primary, secondary],
-        plotOptions: {
-            bar: {
-                horizontal: false,
-                barHeight: '60%',
-                columnWidth: '42%',
-                borderRadius: [6],
-                borderRadiusApplication: 'end',
-                borderRadiusWhenStacked: 'all',
-            },
-        },
-
-        stroke: {
-            show: true,
-            width: 5,
-            lineCap: "butt",
-            colors: ["transparent"],
+                autoSelected: 'zoom'
+            }
         },
         dataLabels: {
-            enabled: false,
+            enabled: false
         },
-        legend: {
-            show: false,
+        markers: {
+            size: 0,
         },
-        grid: {
-            borderColor: 'rgba(0,0,0,0.1)',
-            strokeDashArray: 3,
-            xaxis: {
-                lines: {
-                    show: false,
-                },
+        title: {
+            text: 'Stock Price Movement',
+            align: 'left'
+        },
+        fill: {
+            type: 'gradient',
+            gradient: {
+                shadeIntensity: 1,
+                inverseColors: false,
+                opacityFrom: 0.5,
+                opacityTo: 0,
+                stops: [0, 90, 100]
             },
         },
         yaxis: {
-            tickAmount: 4,
-        },
-        xaxis: {
-            categories: ['16/08', '17/08', '18/08', '19/08', '20/08', '21/08', '22/08', '23/08'],
-            axisBorder: {
-                show: false,
+            labels: {
+                formatter: function (val) {
+                    return val.toFixed(2);
+                },
+            },
+            title: {
+                text: 'Price'
             },
         },
+        xaxis: {
+            type: 'datetime',
+            categories: chartData.dates
+        },
         tooltip: {
-            theme: theme.palette.mode === 'dark' ? 'dark' : 'light',
-            fillSeriesColor: false,
-        },
+            shared: false,
+            y: {
+                formatter: function (val) {
+                    return val.toFixed(2);
+                }
+            }
+        }
     };
-    const seriescolumnchart = [
-        {
-            name: 'Eanings this month',
-            data: [355, 390, 300, 350, 390, 180, 355, 390],
-        },
-        {
-            name: 'Expense this month',
-            data: [280, 250, 325, 215, 250, 310, 280, 250],
-        },
-    ];
 
     return (
         <DashboardCard title="Sales Overview" action={
@@ -95,7 +92,7 @@ const SalesOverview = () => {
                 id="month-dd"
                 value={month}
                 size="small"
-                onChange={handleChange}
+                onChange={event => setMonth(event.target.value)}
             >
                 <MenuItem value={1}>March 2023</MenuItem>
                 <MenuItem value={2}>April 2023</MenuItem>
@@ -103,9 +100,9 @@ const SalesOverview = () => {
             </Select>
         }>
             <Chart
-                options={optionscolumnchart}
-                series={seriescolumnchart}
-                type="bar"
+                options={options}
+                series={[{ name: 'RELIANCE', data: chartData.prices }]}
+                type="area"
                 height="370px"
             />
         </DashboardCard>

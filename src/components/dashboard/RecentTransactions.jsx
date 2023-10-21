@@ -1,100 +1,60 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import DashboardCard from '../shared/DashboardCard';
 import {
   Timeline,
   TimelineItem,
-  TimelineOppositeContent,
   TimelineSeparator,
   TimelineDot,
   TimelineConnector,
   TimelineContent,
-  timelineOppositeContentClasses,
 } from '@mui/lab';
-import { Link, Typography } from '@mui/material';
+import { Link } from '@mui/material';
+
+const fetchNewsFeed = async () => {
+  const url = 'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo';
+  const response = await fetch(url, {
+    headers: {'User-Agent': 'request'}
+  });
+
+  if (response.status !== 200) {
+    throw new Error(`HTTP status ${response.status}`);
+  }
+
+  const data = await response.json();
+  // Adjust this based on the actual API response structure
+  return data && data.feed ? data.feed : [];
+};
 
 const RecentTransactions = () => {
+  const [feed, setFeed] = useState([]);
+
+  useEffect(() => {
+    fetchNewsFeed()
+      .then(newsData => {
+        setFeed(newsData.slice(0, 5)); // Take only the top 5 news items
+      })
+      .catch(err => {
+        console.error('Fetch error:', err);
+      });
+  }, []);
+
   return (
-    <DashboardCard title="Recent Transactions">
-      <>
-        <Timeline
-          className="theme-timeline"
-          nonce={undefined}
-          onResize={undefined}
-          onResizeCapture={undefined}
-          sx={{
-            p: 0,
-            mb: '-40px',
-            '& .MuiTimelineConnector-root': {
-              width: '1px',
-              backgroundColor: '#efefef'
-            },
-            [`& .${timelineOppositeContentClasses.root}`]: {
-              flex: 0.5,
-              paddingLeft: 0,
-            },
-          }}
-        >
-          <TimelineItem>
-            <TimelineOppositeContent>09:30 am</TimelineOppositeContent>
+    <DashboardCard title="Recent News">
+      <Timeline className="theme-timeline">
+        {feed.map((newsItem, index) => (
+          <TimelineItem key={index}>
             <TimelineSeparator>
               <TimelineDot color="primary" variant="outlined" />
-              <TimelineConnector />
-            </TimelineSeparator>
-            <TimelineContent>Payment received from John Doe of $385.90</TimelineContent>
-          </TimelineItem>
-          <TimelineItem>
-            <TimelineOppositeContent>10:00 am</TimelineOppositeContent>
-            <TimelineSeparator>
-              <TimelineDot color="secondary" variant="outlined" />
-              <TimelineConnector />
+              {index < feed.length - 1 && <TimelineConnector />} {/* This condition removes the last connector */}
             </TimelineSeparator>
             <TimelineContent>
-              <Typography fontWeight="600">New sale recorded</Typography>{' '}
-              <Link href="/" underline="none">
-                #ML-3467
+              <Link href={newsItem.url} underline="none">
+                {newsItem.title}
               </Link>
             </TimelineContent>
           </TimelineItem>
-          <TimelineItem>
-            <TimelineOppositeContent>12:00 am</TimelineOppositeContent>
-            <TimelineSeparator>
-              <TimelineDot color="success" variant="outlined" />
-              <TimelineConnector />
-            </TimelineSeparator>
-            <TimelineContent>Payment was made of $64.95 to Michael</TimelineContent>
-          </TimelineItem>
-          <TimelineItem>
-            <TimelineOppositeContent>09:30 am</TimelineOppositeContent>
-            <TimelineSeparator>
-              <TimelineDot color="warning" variant="outlined" />
-              <TimelineConnector />
-            </TimelineSeparator>
-            <TimelineContent>
-              <Typography fontWeight="600">New sale recorded</Typography>{' '}
-              <Link href="/" underline="none">
-                #ML-3467
-              </Link>
-            </TimelineContent>
-          </TimelineItem>
-          <TimelineItem>
-            <TimelineOppositeContent>09:30 am</TimelineOppositeContent>
-            <TimelineSeparator>
-              <TimelineDot color="error" variant="outlined" />
-              <TimelineConnector />
-            </TimelineSeparator>
-            <TimelineContent>
-              <Typography fontWeight="600">New arrival recorded</Typography>
-            </TimelineContent>
-          </TimelineItem>
-          <TimelineItem>
-            <TimelineOppositeContent>12:00 am</TimelineOppositeContent>
-            <TimelineSeparator>
-              <TimelineDot color="success" variant="outlined" />
-            </TimelineSeparator>
-            <TimelineContent>Payment Received</TimelineContent>
-          </TimelineItem>
-        </Timeline>
-      </>
+        ))}
+      </Timeline>
     </DashboardCard>
   );
 };
