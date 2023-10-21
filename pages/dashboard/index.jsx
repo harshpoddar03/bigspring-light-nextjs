@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <PageContainer title="Dashboard" description="this is Dashboard">
       {/* Adding Sidebar and Header directly */}
-      <Sidebar />
+      {/* <Sidebar /> */}
       <Header />
       <Box>
         <Grid container spacing={3}>

@@ -117,14 +117,15 @@ const Header = () => {
           </ul>
         </div>
         {signup_enable && (
-          <div className="d-flex order-1 ml-auto hidden min-w-[200px] items-center justify-end md:ml-0 md:flex md:order-2 ">
-            <Link className="btn btn-primary z-0 py-[14px]" href={signup_link} rel="">
-            Signup
-            </Link>
-            <Link className="btn btn-primary z-0 py-[14px]" href={login_link} rel="">
-            Login
-            </Link>
-          </div>
+          <div className="d-flex order-1 ml-auto hidden min-w-[200px] items-center justify-end md:ml-0 md:flex md:order-2 gap-x-4">
+          <Link className="btn btn-primary z-0 py-[14px]" href={link} rel="">
+              Signup
+          </Link>
+          <Link className="btn btn-primary z-0 py-[14px]" href={link} rel="">
+              Login
+          </Link>
+      </div>
+      
         )}
       </nav>
     </header>
