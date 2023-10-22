@@ -1,13 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import DashboardCard from '../shared/DashboardCard';
-import {
-  Timeline,
-  TimelineItem,
-  TimelineSeparator,
-  TimelineDot,
-  TimelineConnector,
-  TimelineContent,
-} from '@mui/lab';
 import { Link } from '@mui/material';
 
 const fetchNewsFeed = async () => {
@@ -31,7 +23,7 @@ const RecentTransactions = () => {
   useEffect(() => {
     fetchNewsFeed()
       .then(newsData => {
-        setFeed(newsData.slice(0, 5)); // Take only the top 5 news items
+        setFeed(newsData.slice(0, 8)); // Take only the top 5 news items
       })
       .catch(err => {
         console.error('Fetch error:', err);
@@ -39,23 +31,19 @@ const RecentTransactions = () => {
   }, []);
 
   return (
+    <div style={{ marginBottom: '0px',marginLeft: "-18%" }}>
     <DashboardCard title="Recent News">
-      <Timeline className="theme-timeline">
+      <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
         {feed.map((newsItem, index) => (
-          <TimelineItem key={index}>
-            <TimelineSeparator>
-              <TimelineDot color="primary" variant="outlined" />
-              {index < feed.length - 1 && <TimelineConnector />} {/* This condition removes the last connector */}
-            </TimelineSeparator>
-            <TimelineContent>
-              <Link href={newsItem.url} underline="none">
-                {newsItem.title}
-              </Link>
-            </TimelineContent>
-          </TimelineItem>
+          <li key={index}>
+            <Link href={newsItem.url} underline="none">
+              {newsItem.title}
+            </Link>
+          </li>
         ))}
-      </Timeline>
+      </ul>
     </DashboardCard>
+    </div>
   );
 };
 

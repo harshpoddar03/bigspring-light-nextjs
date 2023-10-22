@@ -52,8 +52,8 @@ const products = [
 
 const ProductPerformance = () => {
     return (
-
-        <DashboardCard title="Product Performance">
+        <div style={{ marginBottom: '0px',marginRight: "7.5%" ,height: "10% !important"}}>
+        <DashboardCard title="Top Performers">
             <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
                 <Table
                     aria-label="simple table"
@@ -64,29 +64,29 @@ const ProductPerformance = () => {
                 >
                     <TableHead>
                         <TableRow>
-                            <TableCell>
+                            {/* <TableCell>
                                 <Typography variant="subtitle2" fontWeight={600}>
                                     Id
                                 </Typography>
-                            </TableCell>
+                            </TableCell> */}
                             <TableCell>
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    Assigned
+                                    Stocks
                                 </Typography>
                             </TableCell>
                             <TableCell>
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    Name
+                                    Symbol
                                 </Typography>
                             </TableCell>
                             <TableCell>
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    Priority
+                                    Growth
                                 </Typography>
                             </TableCell>
                             <TableCell align="right">
                                 <Typography variant="subtitle2" fontWeight={600}>
-                                    Budget
+                                    Price
                                 </Typography>
                             </TableCell>
                         </TableRow>
@@ -94,7 +94,7 @@ const ProductPerformance = () => {
                     <TableBody>
                         {products.map((product) => (
                             <TableRow key={product.name}>
-                                <TableCell>
+                                {/* <TableCell>
                                     <Typography
                                         sx={{
                                             fontSize: "15px",
@@ -103,7 +103,7 @@ const ProductPerformance = () => {
                                     >
                                         {product.id}
                                     </Typography>
-                                </TableCell>
+                                </TableCell> */}
                                 <TableCell>
                                     <Box
                                         sx={{
@@ -151,6 +151,7 @@ const ProductPerformance = () => {
                 </Table>
             </Box>
         </DashboardCard>
+        </div>
     );
 };
 

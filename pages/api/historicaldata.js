@@ -6,7 +6,7 @@ export default async function handler(req, res) {
         "function": "TIME_SERIES_DAILY",
         "symbol": "RELIANCE.BSE",
         "outputsize": "full",
-        "apikey": "CFSA27NGK92IIT1K"
+        "apikey": process.env.NEXT_PUBLIC_API_KEY
     };
 
     try {

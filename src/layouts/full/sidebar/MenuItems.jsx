@@ -1,5 +1,5 @@
 import {
-  IconAperture, IconCopy, IconLayoutDashboard, IconLogin, IconMoodHappy, IconTypography, IconUserPlus
+  IconAperture, IconCopy, IconLayoutDashboard, IconLogin, IconMoodHappy, IconTypography, IconUserPlus,IconFile,IconCloudUpload
 } from '@tabler/icons-react';
 
 import { uniqueId } from 'lodash';
@@ -14,23 +14,23 @@ const Menuitems = [
     id: uniqueId(),
     title: 'Dashboard',
     icon: IconLayoutDashboard,
-    href: '/',
+    href: '/dashboard',
   },
   {
     navlabel: true,
-    subheader: 'Utilities',
+    subheader: 'Analysis',
   },
   {
     id: uniqueId(),
-    title: 'Typography',
+    title: 'Fundamental ',
     icon: IconTypography,
     href: '/utilities/typography',
   },
   {
     id: uniqueId(),
-    title: 'Shadow',
+    title: 'Technical ',
     icon: IconCopy,
-    href: '/utilities/shadow',
+    href: '/dashboard/technicalanalysis',
   },
   {
     navlabel: true,
@@ -46,23 +46,23 @@ const Menuitems = [
     id: uniqueId(),
     title: 'Register',
     icon: IconUserPlus,
-    href: '/authentication/register',
+    href: '/authentication/signup',
   },
   {
     navlabel: true,
-    subheader: 'Extra',
+    subheader: 'Upload',
   },
   {
     id: uniqueId(),
-    title: 'Icons',
-    icon: IconMoodHappy,
+    title: 'My Files',
+    icon: IconFile,
     href: '/icons',
   },
   {
     id: uniqueId(),
-    title: 'Sample Page',
-    icon: IconAperture,
-    href: '/sample-page',
+    title: 'Upload File',
+    icon: IconCloudUpload,
+    href: '/upload',
   },
 ];
 

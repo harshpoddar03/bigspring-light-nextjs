@@ -9,7 +9,8 @@ const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 const SalesOverview = () => {
     const [month, setMonth] = React.useState('1');
     const [chartData, setChartData] = useState({ dates: [], prices: [] });
-
+    const [percentageChange, setPercentageChange] = useState(0);
+    const [latestprice, setLatestPrice] = useState(0);
     const theme = useTheme();
     const primary = theme.palette.primary.main;
 
@@ -19,6 +20,11 @@ const SalesOverview = () => {
             if (response.ok) {
                 const data = await response.json();
                 setChartData(data);
+                const latestPrice = chartData.prices[chartData.prices.length - 1];
+                setLatestPrice(latestPrice);
+                const previousPrice = chartData.prices[chartData.prices.length - 2];
+                const percentageChange = ((latestPrice - previousPrice) / previousPrice) * 100;
+                setPercentageChange(percentageChange);
             }
         }
         fetchData();
@@ -86,6 +92,8 @@ const SalesOverview = () => {
     };
 
     return (
+
+        <div style={{ marginBottom: '20px',marginRight: '50px',marginLeft: "-9%" }}>
         <DashboardCard title="Sales Overview" action={
             <Select
                 labelId="month-dd"
@@ -98,14 +106,17 @@ const SalesOverview = () => {
                 <MenuItem value={2}>April 2023</MenuItem>
                 <MenuItem value={3}>May 2023</MenuItem>
             </Select>
-        }>
+        }
+        style={{ marginBottom: '10px' }}>
             <Chart
                 options={options}
                 series={[{ name: 'RELIANCE', data: chartData.prices }]}
                 type="area"
                 height="370px"
+                
             />
         </DashboardCard>
+        </div>
     );
 };
 

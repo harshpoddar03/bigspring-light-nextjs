@@ -53,8 +53,9 @@ const MonthlyEarnings = () => {
   ];
 
   return (
+    <div style={{ marginBottom: '10px',marginRight: "6.5%" }}>
     <DashboardCard
-      title="Monthly Earnings"
+      title="Growth of AAPL Stock"
       action={
         <Fab color="secondary" size="medium" sx={{color: '#ffffff'}}>
           <IconCurrencyDollar width={24} />
@@ -81,6 +82,7 @@ const MonthlyEarnings = () => {
         </Stack>
       </>
     </DashboardCard>
+    </div>
   );
 };
 

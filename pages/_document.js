@@ -17,6 +17,7 @@ const Document = () => {
         {/* theme meta */}
         <meta name="theme-name" content="next-boilerplate" />
         <meta name="msapplication-TileColor" content="#000000" />
+        <link href="https://fonts.googleapis.com/css2?family=Tangerine&display=swap" rel="stylesheet"></link>
         <meta
           name="theme-color"
           media="(prefers-color-scheme: light)"
