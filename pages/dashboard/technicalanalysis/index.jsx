@@ -1,10 +1,10 @@
 import { Grid, Box } from '@mui/material';
 import PageContainer from '../../../src/components/container/PageContainer';
-import SalesOverview from '../../../src/components/dashboard/SalesOverview';
+import SalesOverview from '../../../src/components/dashboard/MarketPrice';
 import YearlyBreakup from '../../../src/components/dashboard/SentimentAnalysis';
-import RecentTransactions from '../../../src/components/dashboard/RecentTransactions';
-import ProductPerformance from '../../../src/components/dashboard/ProductPerformance';
-import MonthlyEarnings from '../../../src/components/dashboard/MonthlyEarnings';
+import RecentTransactions from '../../../src/components/dashboard/NewsStock';
+import ProductPerformance from '../../../src/components/dashboard/TopPerformance';
+import MonthlyEarnings from '../../../src/components/dashboard/GrowthStock';
 import Sidebar from '../../../src/layouts/full/sidebar/Sidebar';
 import Header from '../../../src/layouts/full/header/Header';
 

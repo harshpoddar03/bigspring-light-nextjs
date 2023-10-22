@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { IconArrowUpRight, IconCurrencyDollar } from '@tabler/icons-react';
 import {
     Typography, Box,
     Table,
@@ -6,7 +7,8 @@ import {
     TableCell,
     TableHead,
     TableRow,
-    Chip
+    Chip,
+    Avatar
 } from '@mui/material';
 import DashboardCard from '../shared/DashboardCard';
 
@@ -57,10 +59,13 @@ const ProductPerformance = () => {
                                         Stocks
                                     </Typography>
                                 </TableCell>
-                                <TableCell>
+                                <TableCell style={{display: "flex",gap: "10px"}}>
                                     <Typography variant="subtitle2" fontWeight={600}>
                                         Growth
                                     </Typography>
+                                    <Avatar sx={{ bgcolor: "green", width: 20, height: 20 }}>
+                                        <IconArrowUpRight width={20} color="#FA896B" />
+                                    </Avatar>
                                 </TableCell>
                                 <TableCell align="right">
                                     <Typography variant="subtitle2" fontWeight={600}>

@@ -34,20 +34,20 @@ const Menuitems = [
   },
   {
     navlabel: true,
-    subheader: 'Auth',
+    subheader: 'Portfolio',
   },
   {
     id: uniqueId(),
-    title: 'Login',
+    title: 'Anaslysis',
     icon: IconLogin,
     href: '/authentication/login',
   },
-  {
-    id: uniqueId(),
-    title: 'Register',
-    icon: IconUserPlus,
-    href: '/authentication/signup',
-  },
+  // {
+  //   id: uniqueId(),
+  //   title: 'Register',
+  //   icon: IconUserPlus,
+  //   href: '/authentication/signup',
+  // },
   {
     navlabel: true,
     subheader: 'Upload',
