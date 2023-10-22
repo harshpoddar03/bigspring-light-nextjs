@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Typography, Box,
     Table,
@@ -10,147 +10,95 @@ import {
 } from '@mui/material';
 import DashboardCard from '../shared/DashboardCard';
 
-const products = [
-    {
-        id: "1",
-        name: "Sunil Joshi",
-        post: "Web Designer",
-        pname: "Elite Admin",
-        priority: "Low",
-        pbg: "primary.main",
-        budget: "3.9",
-    },
-    {
-        id: "2",
-        name: "Andrew McDownland",
-        post: "Project Manager",
-        pname: "Real Homes WP Theme",
-        priority: "Medium",
-        pbg: "secondary.main",
-        budget: "24.5",
-    },
-    {
-        id: "3",
-        name: "Christopher Jamil",
-        post: "Project Manager",
-        pname: "MedicalPro WP Theme",
-        priority: "High",
-        pbg: "error.main",
-        budget: "12.8",
-    },
-    {
-        id: "4",
-        name: "Nirav Joshi",
-        post: "Frontend Engineer",
-        pname: "Hosting Press HTML",
-        priority: "Critical",
-        pbg: "success.main",
-        budget: "2.4",
-    },
-];
-
-
 const ProductPerformance = () => {
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        fetch('https://www.alphavantage.co/query?function=TOP_GAINERS_LOSERS&apikey=demo')
+            .then(response => response.json())
+            .then(result => {
+                // Take only the top 5 results from the array
+                const topFiveGainers = result.top_gainers.slice(0, 5);
+                setData(topFiveGainers);
+                setLoading(false);
+            })
+            .catch(err => {
+                console.error("Error fetching data:", err);
+                setError(err);
+                setLoading(false);
+            });
+    }, []);
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p>Error loading data.</p>;
+    }
+
     return (
-        <div style={{ marginBottom: '0px',marginRight: "7.5%" ,height: "10% !important"}}>
-        <DashboardCard title="Top Performers">
-            <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
-                <Table
-                    aria-label="simple table"
-                    sx={{
-                        whiteSpace: "nowrap",
-                        mt: 2
-                    }}
-                >
-                    <TableHead>
-                        <TableRow>
-                            {/* <TableCell>
-                                <Typography variant="subtitle2" fontWeight={600}>
-                                    Id
-                                </Typography>
-                            </TableCell> */}
-                            <TableCell>
-                                <Typography variant="subtitle2" fontWeight={600}>
-                                    Stocks
-                                </Typography>
-                            </TableCell>
-                            <TableCell>
-                                <Typography variant="subtitle2" fontWeight={600}>
-                                    Symbol
-                                </Typography>
-                            </TableCell>
-                            <TableCell>
-                                <Typography variant="subtitle2" fontWeight={600}>
-                                    Growth
-                                </Typography>
-                            </TableCell>
-                            <TableCell align="right">
-                                <Typography variant="subtitle2" fontWeight={600}>
-                                    Price
-                                </Typography>
-                            </TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {products.map((product) => (
-                            <TableRow key={product.name}>
-                                {/* <TableCell>
-                                    <Typography
-                                        sx={{
-                                            fontSize: "15px",
-                                            fontWeight: "500",
-                                        }}
-                                    >
-                                        {product.id}
-                                    </Typography>
-                                </TableCell> */}
+        <div style={{ marginBottom: '0px', marginRight: "7.5%" }}>
+            <DashboardCard title="Top Performers">
+                <Box sx={{ overflow: 'auto', width: { xs: '280px', sm: 'auto' } }}>
+                    <Table
+                        aria-label="simple table"
+                        sx={{
+                            whiteSpace: "nowrap",
+                            mt: 2
+                        }}
+                    >
+                        <TableHead>
+                            <TableRow>
                                 <TableCell>
-                                    <Box
-                                        sx={{
-                                            display: "flex",
-                                            alignItems: "center",
-                                        }}
-                                    >
-                                        <Box>
-                                            <Typography variant="subtitle2" fontWeight={600}>
-                                                {product.name}
-                                            </Typography>
-                                            <Typography
-                                                color="textSecondary"
-                                                sx={{
-                                                    fontSize: "13px",
-                                                }}
-                                            >
-                                                {product.post}
-                                            </Typography>
-                                        </Box>
-                                    </Box>
-                                </TableCell>
-                                <TableCell>
-                                    <Typography color="textSecondary" variant="subtitle2" fontWeight={400}>
-                                        {product.pname}
+                                    <Typography variant="subtitle2" fontWeight={600}>
+                                        Stocks
                                     </Typography>
                                 </TableCell>
                                 <TableCell>
-                                    <Chip
-                                        sx={{
-                                            px: "4px",
-                                            backgroundColor: product.pbg,
-                                            color: "#fff",
-                                        }}
-                                        size="small"
-                                        label={product.priority}
-                                    ></Chip>
+                                    <Typography variant="subtitle2" fontWeight={600}>
+                                        Growth
+                                    </Typography>
                                 </TableCell>
                                 <TableCell align="right">
-                                    <Typography variant="h6">${product.budget}k</Typography>
+                                    <Typography variant="subtitle2" fontWeight={600}>
+                                        Price
+                                    </Typography>
                                 </TableCell>
                             </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </Box>
-        </DashboardCard>
+                        </TableHead>
+                        <TableBody>
+                            {data.map((item) => (
+                                <TableRow key={item.ticker}>
+                                    <TableCell>
+                                        <Box
+                                            sx={{
+                                                display: "flex",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <Typography variant="subtitle2" fontWeight={600}>
+                                                {item.ticker}
+                                            </Typography>
+                                        </Box>
+                                    </TableCell>
+                                    <TableCell>
+                                        <Chip
+                                            size="small"
+                                            label={item.change_percentage}
+                                        ></Chip>
+                                    </TableCell>
+                                    <TableCell align="right">
+                                        <Typography variant="h6">${item.price}</Typography>
+                                    </TableCell>
+                                </TableRow>
+                            ))}
+                        </TableBody>
+                    </Table>
+                </Box>
+            </DashboardCard>
         </div>
     );
 };

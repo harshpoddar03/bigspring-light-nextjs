@@ -2,13 +2,15 @@ import { Grid, Box, Button, LinearProgress, Paper } from '@mui/material';
 import PageContainer from '../../src/components/container/PageContainer';
 import Sidebar from '../../src/layouts/full/sidebar/Sidebar';
 import Header from '../../src/layouts/full/header/Header';
-import { useRef } from 'react';
+import { useRef ,useState} from 'react';
 import ExcelIcon from '@mui/icons-material/InsertDriveFile'; // you can replace this with a more appropriate Excel icon
 
 
 export default function Home() {
   // Reference to the hidden input element
   const hiddenFileInput = useRef(null);
+  const [uploading, setUploading] = useState(false);
+  const [progress, setProgress] = useState(0);
 
   // Handler for the Upload button click
   const handleUploadClick = () => {
@@ -20,7 +22,20 @@ export default function Home() {
   const handleFileChange = event => {
     const file = event.target.files[0];
     console.log('Selected file:', file);
-    // Do further processing with the file if needed
+    
+    // Simulate file upload
+    setUploading(true);
+    setProgress(0);
+    const interval = setInterval(() => {
+      setProgress((prevProgress) => {
+        if (prevProgress === 100) {
+          clearInterval(interval);
+          setUploading(false);
+          return 100;
+        }
+        return Math.min(prevProgress + 10, 100); 
+      });
+    }, 500);
   };
 
   return (
@@ -35,7 +50,7 @@ export default function Home() {
         <Grid item xs={12} md={9}>
           <Header />
           {/* Center the content vertically */}
-          <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" height="calc(100vh - 10px)">
+          <Box display="flex" flexDirection="column" alignItems="center" justifyContent="center" marginRight={10} height="calc(100vh - 10px)">
             {/* Bordered Box with increased height */}
             <Paper elevation={3} style={{ 
               padding: '24px',
@@ -54,6 +69,12 @@ export default function Home() {
               <Box fontSize="p.fontSize" mb={4} >
                 Add your porfolio file to get started. You can either go to your files or click on the button below to upload a new file.
               </Box>
+
+              {uploading && (
+                <Box my={3} width="100%">
+                  <LinearProgress variant="determinate" value={progress} />
+                </Box>
+              )}
               <Box display="flex" flexDirection="row" gap={3}>
                 {/* Hidden file input */}
                 <input
