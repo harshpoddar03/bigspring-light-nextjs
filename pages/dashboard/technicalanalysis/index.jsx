@@ -8,7 +8,7 @@ import MonthlyEarnings from '../../../src/components/dashboard/GrowthStock';
 import StockSearchBar from '../../../src/components/dashboard/StockSearchBar';
 import Sidebar from '../../../src/layouts/full/sidebar/Sidebar';
 import Header from '../../../src/layouts/full/header/Header';
-
+import { useState,useEffect, useRef } from 'react';
 
 const FlexContainer = styled(Box)({
   display: 'flex',
@@ -37,6 +37,21 @@ export default function Home() {
     console.log(results);
   };
 
+  const [chartData, setChartData] = useState({ dates: [], prices: [] });
+  const [name,setName] = useState(null);
+  useEffect(() => {
+    async function fetchData() {
+        const response = await fetch('/api/historicaldata');
+        if (response.ok) {
+            const data = await response.json();
+            // setChartData(data);
+            setChartData(data);
+            setName(data.stock);
+        }
+    }
+    fetchData();
+  }, []);
+
   return (
     <PageContainer title="Dashboard" description="this is Dashboard">
       <Header />
@@ -59,7 +74,10 @@ export default function Home() {
             {/* Sales Overview */}
             <Grid container>
               <Grid item xs={12}>
-                <SalesOverview />
+                {/* <SalesOverview />
+                 */}
+                 <SalesOverview chartData={chartData} name={name} />
+
               </Grid>
             </Grid>
 

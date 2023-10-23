@@ -56,7 +56,7 @@ const Menuitems = [
     id: uniqueId(),
     title: 'My Files',
     icon: IconFile,
-    href: '/icons',
+    href: '/files',
   },
   {
     id: uniqueId(),

@@ -31,7 +31,7 @@ const RecentTransactions = () => {
   }, []);
 
   return (
-    <div style={{ marginBottom: '0px',marginLeft: "-18%" }}>
+    <div style={{ marginBottom: '0px',marginLeft: "-18%" , minHeight: "300px",maxHeight :'260px' }}>
     <DashboardCard title="Recent News">
       <ul style={{ listStyleType: 'disc', paddingLeft: '20px' }}>
         {feed.map((newsItem, index) => (

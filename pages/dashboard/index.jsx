@@ -8,7 +8,7 @@ import MonthlyEarnings from '../../src/components/dashboard/GrowthStock';
 import StockSearchBar from '../../src/components/dashboard/StockSearchBar';
 import Sidebar from '../../src/layouts/full/sidebar/Sidebar';
 import Header from '../../src/layouts/full/header/Header';
-
+import { useState,useEffect} from 'react';
 
 const FlexContainer = styled(Box)({
   display: 'flex',
@@ -36,6 +36,31 @@ export default function Home() {
     // Do something with the results.
     console.log(results);
   };
+  const [chartData, setChartData] = useState({ dates: [], prices: [] });
+  const [percentageChange, setPercentageChange] = useState(0);
+  const [latestPrice, setLatestPrice] = useState(0);
+  const [name,setName] = useState('RELIANCE');
+
+  useEffect(() => {
+    async function fetchData() {
+        const response = await fetch('/api/historicaldata');
+        if (response.ok) {
+            const data = await response.json();
+            setChartData(data);
+            setName(data.stock);
+            
+            // Move these calculations here
+            const latestPrice = data.prices[data.prices.length - 1]; // Use data.prices instead of chartData.prices
+            setLatestPrice(latestPrice);
+            
+            const previousPrice = data.prices[data.prices.length - 2];
+            const percentageChangeCalculation = ((latestPrice - previousPrice) / previousPrice) * 100;
+            setPercentageChange(percentageChangeCalculation);
+        }
+    }
+    fetchData();
+}, []);
+
 
   return (
     <PageContainer title="Dashboard" description="this is Dashboard">
@@ -59,7 +84,9 @@ export default function Home() {
             {/* Sales Overview */}
             <Grid container>
               <Grid item xs={12}>
-                <SalesOverview />
+                {/* <SalesOverview />
+                 */}
+                 <SalesOverview chartData={chartData} name={name} />
               </Grid>
             </Grid>
 
@@ -72,7 +99,10 @@ export default function Home() {
                 <SentimentAnalysis />
               </Grid>
               <Grid item xs={12} md={6}>
-                <MonthlyEarnings />
+                {/* <MonthlyEarnings />
+                 */}
+                 <MonthlyEarnings percentageChange={percentageChange} latestPrice={latestPrice} name={name} />
+
               </Grid>
             </Grid>
 

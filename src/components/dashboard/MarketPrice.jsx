@@ -6,36 +6,36 @@ import { useTheme } from '@emotion/react';
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
-const SalesOverview = () => {
+const SalesOverview = (props) => {
     const [month, setMonth] = React.useState('1');
-    const [chartData, setChartData] = useState({ dates: [], prices: [] });
+    // const [chartData, setChartData] = useState({ dates: [], prices: [] });
     const [percentageChange, setPercentageChange] = useState(0);
     const [latestprice, setLatestPrice] = useState(0);
     const [name,setName] = useState('RELIANCE');
     const theme = useTheme();
     const primary = theme.palette.primary.main;
 
-    useEffect(() => {
-        async function fetchData() {
-            const response = await fetch('/api/historicaldata');
-            if (response.ok) {
-                const data = await response.json();
-                setChartData(data);
-                setName(data.stock)
-                const latestPrice = chartData.prices[chartData.prices.length - 1];
-                setLatestPrice(latestPrice);
-                const previousPrice = chartData.prices[chartData.prices.length - 2];
-                const percentageChange = ((latestPrice - previousPrice) / previousPrice) * 100;
-                setPercentageChange(percentageChange);
-            }
-        }
-        fetchData();
-    }, []);
+    // useEffect(() => {
+    //     async function fetchData() {
+    //         const response = await fetch('/api/historicaldata');
+    //         if (response.ok) {
+    //             const data = await response.json();
+    //             setChartData(data);
+    //             setName(data.stock)
+    //             const latestPrice = chartData.prices[chartData.prices.length - 1];
+    //             setLatestPrice(latestPrice);
+    //             const previousPrice = chartData.prices[chartData.prices.length - 2];
+    //             const percentageChange = ((latestPrice - previousPrice) / previousPrice) * 100;
+    //             setPercentageChange(percentageChange);
+    //         }
+    //     }
+    //     fetchData();
+    // }, []);
 
     const options = {
         series: [{
             name: 'RELIANCE',
-            data: chartData.prices
+            data: props.chartData.prices
         }],
         chart: {
             type: 'area',
@@ -81,7 +81,7 @@ const SalesOverview = () => {
         },
         xaxis: {
             type: 'datetime',
-            categories: chartData.dates
+            categories: props.chartData.dates
         },
         tooltip: {
             shared: false,
@@ -96,7 +96,7 @@ const SalesOverview = () => {
     return (
 
         <div style={{ marginBottom: '20px',marginRight: '50px',marginLeft: "-9%" }}>
-        <DashboardCard title={name} action={
+        <DashboardCard title={props.name} action={
             <Select
                 labelId="month-dd"
                 id="month-dd"
@@ -112,7 +112,7 @@ const SalesOverview = () => {
         style={{ marginBottom: '10px' }}>
             <Chart
                 options={options}
-                series={[{ name: 'RELIANCE', data: chartData.prices }]}
+                series={[{ name: 'RELIANCE', data: props.chartData.prices }]}
                 type="area"
                 height="370px"
                 
