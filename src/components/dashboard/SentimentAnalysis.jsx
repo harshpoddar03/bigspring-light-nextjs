@@ -19,7 +19,7 @@ const SentimentAnalysis = () => {
   });
 
   useEffect(() => {
-    const url = 'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=60VYA20F0D2K88RS';
+    const url = 'https://www.alphavantage.co/query?function=NEWS_SENTIMENT&tickers=AAPL&apikey=demo';
 
     fetch(url, { headers: { 'User-Agent': 'request' } })
       .then(res => res.json())

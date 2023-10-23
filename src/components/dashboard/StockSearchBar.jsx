@@ -26,7 +26,7 @@ const StockSearchBar = () => {
         params: {
           function: 'SYMBOL_SEARCH',
           keywords: searchQuery,
-          apikey: process.env.NEXT_PUBLIC_API_KEY // replace with your API key
+          apikey: "60VYA20F0D2K88RS" // replace with your API key
         }
       });
       setResults(response.data.bestMatches || []);
@@ -39,7 +39,7 @@ const StockSearchBar = () => {
   return (
     <Box mb={2} position="relative">
       {/* Start of the new container */}
-      <Box display="flex" alignItems="center">
+      <Box display="flex" alignItems="center" position="relative">
         {/* Greeting text */}
         <span style={{ 
             fontFamily: 'Tangerine, cursive', 
@@ -53,12 +53,13 @@ const StockSearchBar = () => {
         </span>
 
         {/* Search bar */}
+        <div style={{ width: '30%', marginRight: '4%' }}>
         <TextField
           variant="outlined"
           placeholder="Search for stocks..."
           value={query}
           onChange={handleSearchChange}
-          style={{ width: '30%',marginRight: "4%" }}
+          style={{ width: '100%',marginRight: "4%" }}
           InputProps={{
             endAdornment: (
               <Button 
@@ -82,11 +83,8 @@ const StockSearchBar = () => {
           }
           }}
         />
-      </Box>
-      {/* End of the new container */}
-      
-      {results.length > 0 && (
-        <Paper elevation={2} style={{ position: 'absolute', top: '100%', width: '60%', maxHeight: '200px', overflowY: 'auto', zIndex: 1000 }}>
+        {results.length > 0 && (
+        <Paper elevation={2} style={{ position: 'absolute', top: '100%', width: '23%', maxHeight: '200px', overflowY: 'auto', zIndex: 1000 }}>
           <List>
             {results.map((result, index) => (
               <ListItem key={index}>
@@ -95,7 +93,23 @@ const StockSearchBar = () => {
             ))}
           </List>
         </Paper>
+
       )}
+      </div>
+      </Box>
+      {/* End of the new container */}
+      
+      {/* {results.length > 0 && (
+        <Paper elevation={2} style={{ position: 'absolute', top: '100%', width: '30%', maxHeight: '200px', overflowY: 'auto', zIndex: 1000 }}>
+          <List>
+            {results.map((result, index) => (
+              <ListItem key={index}>
+                {result['1. symbol']} - {result['2. name']}
+              </ListItem>
+            ))}
+          </List>
+        </Paper>
+      )} */}
     </Box>
   );
 }
