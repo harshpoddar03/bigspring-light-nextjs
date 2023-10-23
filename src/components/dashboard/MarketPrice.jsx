@@ -11,6 +11,7 @@ const SalesOverview = () => {
     const [chartData, setChartData] = useState({ dates: [], prices: [] });
     const [percentageChange, setPercentageChange] = useState(0);
     const [latestprice, setLatestPrice] = useState(0);
+    const [name,setName] = useState('RELIANCE');
     const theme = useTheme();
     const primary = theme.palette.primary.main;
 
@@ -20,6 +21,7 @@ const SalesOverview = () => {
             if (response.ok) {
                 const data = await response.json();
                 setChartData(data);
+                setName(data.stock)
                 const latestPrice = chartData.prices[chartData.prices.length - 1];
                 setLatestPrice(latestPrice);
                 const previousPrice = chartData.prices[chartData.prices.length - 2];
@@ -94,7 +96,7 @@ const SalesOverview = () => {
     return (
 
         <div style={{ marginBottom: '20px',marginRight: '50px',marginLeft: "-9%" }}>
-        <DashboardCard title="Sales Overview" action={
+        <DashboardCard title={name} action={
             <Select
                 labelId="month-dd"
                 id="month-dd"

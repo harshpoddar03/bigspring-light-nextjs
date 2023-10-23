@@ -15,6 +15,6 @@ request.get({
       console.log('Status:', res.statusCode);
     } else {
       // data is successfully parsed as a JSON object:
-      console.log(data);
+      console.log("DPME2");
     }
 });

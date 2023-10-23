@@ -16,8 +16,8 @@ export default async function handler(req, res) {
             const daily_data = response.data['Time Series (Daily)'];
             const dates = Object.keys(daily_data);
             const prices = dates.map(date => parseFloat(daily_data[date]['4. close']));
-            
-            res.status(200).json({ dates, prices });
+            const stock = params.symbol;
+            res.status(200).json({ dates, prices,stock });
             console.log("done")
         } else {
             res.status(400).json({ error: 'Data format not as expected.' });

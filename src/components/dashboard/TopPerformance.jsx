@@ -64,7 +64,7 @@ const ProductPerformance = () => {
                                         Growth
                                     </Typography>
                                     <Avatar sx={{ bgcolor: "green", width: 20, height: 20 }}>
-                                        <IconArrowUpRight width={20} color="#FA896B" />
+                                        <IconArrowUpRight width={20} color="darkgreen" />
                                     </Avatar>
                                 </TableCell>
                                 <TableCell align="right">

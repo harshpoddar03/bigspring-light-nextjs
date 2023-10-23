@@ -3,8 +3,9 @@ import dynamic from "next/dynamic";
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 import { useTheme } from '@mui/material/styles';
 import { Stack, Typography, Avatar, Fab } from '@mui/material';
-import { IconArrowDownRight, IconCurrencyDollar } from '@tabler/icons-react';
+import { IconArrowDownRight, IconCurrencyDollar,IconArrowUpRight } from '@tabler/icons-react';
 import DashboardCard from '../shared/DashboardCard';
+import { useEffect, useState } from 'react';
 
 const MonthlyEarnings = () => {
   // chart color
@@ -12,6 +13,23 @@ const MonthlyEarnings = () => {
   const secondary = theme.palette.secondary.main;
   const secondarylight = '#f5fcff';
   const errorlight = '#fdede8';
+  const [percentageChange, setPercentageChange] = useState(0);
+  const [latestprice, setLatestPrice] = useState(0);
+
+  useEffect(() => {
+    async function fetchData() {
+        const response = await fetch('/api/historicaldata');
+        if (response.ok) {
+            const data = await response.json();
+            const latestPrice = data.prices[data.prices.length - 1];
+            setLatestPrice(latestPrice);
+            const previousPrice = data.prices[data.prices.length - 2];
+            const percentageChange = ((latestPrice - previousPrice) / previousPrice) * 100;
+            setPercentageChange(percentageChange);
+        }
+    }
+    fetchData();
+}, []);
 
   // chart
   const optionscolumnchart = {
@@ -67,17 +85,21 @@ const MonthlyEarnings = () => {
     >
       <>
         <Typography variant="h3" fontWeight="700" mt="-20px">
-          $6,820
+          ${latestprice.toFixed(2)}
         </Typography>
         <Stack direction="row" spacing={1} my={1} alignItems="center">
           <Avatar sx={{ bgcolor: errorlight, width: 27, height: 27 }}>
-            <IconArrowDownRight width={20} color="#FA896B" />
+            {/* <IconArrowDownRight width={20} color="#FA896B" />
+             */}
+            {/* <IconArrowDownRight width={20} color={percentageChange > 0 ? "green" : "red"} />
+             */}
+             {percentageChange > 0 ? <IconArrowUpRight width={20} color="green" /> : <IconArrowDownRight width={20} color="red" />}
           </Avatar>
           <Typography variant="subtitle2" fontWeight="600">
-            +9%
+            {percentageChange.toFixed(2)}% {percentageChange > 0 ? 'up' : 'down'}
           </Typography>
           <Typography variant="subtitle2" color="textSecondary">
-            last year
+            last day
           </Typography>
         </Stack>
       </>
