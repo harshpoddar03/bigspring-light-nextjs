@@ -3,6 +3,8 @@ import img1 from 'public/images/backgrounds/rocket.png';
 import Image from 'next/image';
 import Link from 'next/link';
 
+
+
 export const Upgrade = () => {
     return (
         <Box
@@ -14,7 +16,7 @@ export const Upgrade = () => {
             <>
                 <Box>
                     <Typography variant="h6" mb={1}>Forecasting</Typography>
-                    <Button color="primary" target="_blank" disableElevation component={Link} href="https://adminmart.com/product/modernize-next-js-admin-dashboard" variant="contained" aria-label="logout" size="small">
+                    <Button color="primary" target="_blank" disableElevation component={Link} href="\dashboard\forecasting" variant="contained" aria-label="logout" size="small">
                         Get started
                     </Button>
                 </Box>
