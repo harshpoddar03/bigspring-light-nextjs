@@ -1,6 +1,6 @@
 import { Grid, Box ,styled } from '@mui/material';
 import PageContainer from '../../../src/components/container/PageContainer';
-import SalesOverview from '../../../src/components/dashboard/MarketPrice';
+import TechAnalysis from '../../../src/components/dashboard/TechnicalAnalysis';
 import SentimentAnalysis from '../../../src/components/dashboard/SentimentAnalysis';
 import RecentTransactions from '../../../src/components/dashboard/NewsStock';
 import ProductPerformance from '../../../src/components/dashboard/TopPerformance';
@@ -76,7 +76,7 @@ export default function Home() {
               <Grid item xs={12}>
                 {/* <SalesOverview />
                  */}
-                 <SalesOverview chartData={chartData} name={name} />
+                 <TechAnalysis chartData={chartData} name={name} />
 
               </Grid>
             </Grid>

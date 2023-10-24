@@ -1,7 +1,7 @@
 ---
 banner:
-  title: Let us solve your critical website development mkb
-  content: Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam nihil enim maxime corporis cumque <br/> totam aliquid nam sint inventore optio modi neque laborum officiis necessitatibus
+  title: Welcome to Your Financial Overview Dashboard
+  content: Dive deep into your financial metrics with our intuitive interface. From insights to predictions, understand every aspect of your monetary journey.
   image: /images/banner-art.svg
   button:
     label: "Contact Us"
@@ -9,31 +9,31 @@ banner:
 
 # feature
 feature: 
-  title: Something You Need To Know
+  title: Key Dashboard Metrics
   features:
   - name: "Clean Code"
     icon: "/images/code.svg"
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit quam nihil"
+    content: "Efficient algorithms that ensure precise financial calculations for your assets and liabilities"
   - name: "Object Oriented"
     icon: "/images/oop.svg"
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit quam nihil"
+    content: "Structured financial data models to simplify complex monetary structures for better insights."
   - name: "24h Service"
     icon: "/images/user-clock.svg"
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit quam nihil"
+    content: "Round-the-clock financial data monitoring to keep you updated with real-time changes."
   - name: "Value for Money"
     icon: "/images/love.svg"
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit quam nihil"
+    content: "Maximize your returns and minimize risks with intelligent financial projections."
   - name: "Faster Response"
     icon: "/images/speedometer.svg"
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit quam nihil"
+    content: "High-speed data processing to update your dashboard in real-time."
   - name: "Cloud Support"
     icon: "/images/cloud.svg"
-    content: "Lorem ipsum dolor sit amet consectetur adipisicing elit quam nihil"
+    content: "Secure cloud storage ensures your financial data is safe and accessible anytime, anywhere."
 
 # services
 services:
-  - title: "It is the most advanced digital marketing and it company."
-    content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Consequat tristique eget amet, tempus eu at consecttur. Leo facilisi nunc viverra tellus. Ac laoreet sit vel consquat. consectetur adipiscing elit. Consequat tristique eget amet, tempus eu at consecttur. Leo facilisi nunc viverra tellus. Ac laoreet sit vel consquat."
+  - title: "Deep Dive into Asset Distribution"
+    content: "Analyze your portfolio spread across various asset classes and sectors. Understand where you're gaining and what needs reconsideration"
     images:
       - "/images/service-slide-1.png"
       - "/images/service-slide-2.png"
