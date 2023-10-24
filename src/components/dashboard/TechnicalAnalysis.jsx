@@ -118,6 +118,7 @@ const TechAnalysis = (props) => {
 
 
     let interpretation = "";
+    let link = "";
     let options = {
         series: [{
             name: 'RELIANCE',
@@ -195,6 +196,7 @@ const TechAnalysis = (props) => {
                 const latestPrice = props.chartData.prices[props.chartData.prices.length - 1];
                 const latestUpperBand = upperBand[upperBand.length - 1];
                 const latestLowerBand = lowerBand[lowerBand.length - 1];
+                link = "https://www.investopedia.com/terms/b/bollingerbands.asp";
 
                 if (latestPrice > latestUpperBand) {
                     interpretation = "The stock is currently trading above the upper Bollinger Band, indicating it might be overbought and due for a pullback or a period of consolidation.";
@@ -279,6 +281,7 @@ const TechAnalysis = (props) => {
 }
 else if (selectedAnalysis === '2') {
     const latestRSI = rsiData[rsiData.length - 1];
+    link = "https://www.investopedia.com/terms/r/rsi.asp";
     if (latestRSI > 70) {
         interpretation = "The RSI value indicates the stock might be overbought. Consider watching for a potential price decrease or consolidation.";
     } else if (latestRSI < 30) {
@@ -344,6 +347,7 @@ else if (selectedAnalysis === '3') {
     const { macdLine, signalLine } = calculateMACD(prices);
     const latestMACD = macdLine[macdLine.length - 1];
     const latestSignal = signalLine[signalLine.length - 1];
+    link = "https://www.investopedia.com/terms/m/macd.asp";
 
 
     if (latestMACD > latestSignal) {
@@ -434,7 +438,7 @@ else if (selectedAnalysis === '3') {
     height="400px"
 />
         </DashboardCard>
-        <div style={{marginTop: "60px",width :"50%"}}>
+        <div style={{marginTop: "60px",width :"100%",display: "flex",flexDirection: "row",gap:"70px"}}>
         <DashboardCard 
        title={
         selectedAnalysis === '3' ? "MACD Interpretation" :
@@ -444,6 +448,17 @@ else if (selectedAnalysis === '3') {
       
     style={{ marginTop: '70px' }}>
     <p>{interpretation}</p>
+</DashboardCard>
+<DashboardCard 
+    title={
+        selectedAnalysis === '3' ? "Moving Average Convergence/Divergence (MACD)" :
+        selectedAnalysis === '2' ? "Relative Strength Index (RSI)" : 
+        "Bollinger Bands"
+    }
+
+    style={{ marginTop: '70px' }}>
+    <p>Want to know more about this Indicator?&nbsp;&nbsp;&nbsp;&nbsp;Visit this link</p>
+    <a href={link} style={{ textDecoration: 'underline' }}>{link}</a>
 </DashboardCard>
 
         </div>

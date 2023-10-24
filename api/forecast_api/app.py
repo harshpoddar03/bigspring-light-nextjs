@@ -18,7 +18,7 @@ def forecast_endpoint():
     # Convert the data to a pandas DataFrame
     df = pd.DataFrame({
         'ds': data['dates'],
-        'y': data['values']
+        'y': data['prices']
     })
 
     # Use Prophet for forecasting
@@ -30,7 +30,7 @@ def forecast_endpoint():
     # Return forecasted data
     result = {
         'actual_dates': data['dates'],
-        'actual_values': data['values'],
+        'actual_values': data['prices'],
         'forecasted_dates': forecast['ds'].tolist(),
         'forecasted_values': forecast['yhat'].tolist()
     }
